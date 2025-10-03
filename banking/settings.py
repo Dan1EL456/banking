@@ -60,7 +60,7 @@ ROOT_URLCONF = 'banking.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'], # agrega esta línea
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,14 +92,14 @@ DATABASES = {
 
     'supabase':{
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'PORT': '',
+        'HOST': env('SUPA_DB_HOST'),
+        'NAME': env('SUPA_DB_NAME'),
+        'USER': env('SUPA_DB_USER'),
+        'PASSWORD': env('SUPA_DB_PASSWORD'),
+        'PORT': env('SUPA_DB_PORT'),
+
 
     },
-
 
     'local': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -142,7 +142,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# Archivos estáticos (para desarrollo)
+
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static'] # carpeta para css/js
+STATIC_ROOT = BASE_DIR / 'staticfiles' # para collectstatic en producción
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
